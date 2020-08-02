@@ -10,7 +10,7 @@ class IndexController {
 
     @GetMapping("/")
     fun index(model: Model): String {
-        model["title"] = "Hello World"
+        model["title"] = "Under Construction"
         return "index"
     }
 }
