@@ -15,6 +15,6 @@ class IndexControllerTest(@Autowired val restTemplate: TestRestTemplate) {
     fun `Assert index has the expected title`() {
         val entity = restTemplate.getForEntity<String>("/")
         assertThat(entity.statusCode).isEqualTo(HttpStatus.OK)
-        assertThat(entity.body).contains("<h1>Under Construction</h1>")
+        assertThat(entity.body).contains("<h1>montol.io blog</h1>")
     }
 }
