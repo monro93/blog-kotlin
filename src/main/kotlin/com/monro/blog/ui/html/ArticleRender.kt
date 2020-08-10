@@ -1,17 +1,20 @@
 package com.monro.blog.ui.html
 
 import com.monro.blog.domain.Article
+import com.monro.shared.src.domain.format
 
 fun Article.render() = RenderedArticle(
-    slug,
+    fullSlug(),
     title,
+    headline,
     content,
-    getPublishedAt().toString()
+    publishedAt?.format()
 )
 
 data class RenderedArticle(
-    val slug: String,
+    val fullSlug: String,
     val title: String,
+    val headline: String,
     val content: String,
-    val addedAt: String
+    val addedAt: String?
 )

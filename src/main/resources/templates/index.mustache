@@ -7,11 +7,11 @@
     {{#articles}}
         <section>
             <header class="article-header">
-                <h2 class="article-title"><a href="/article/{{slug}}">{{title}}</a></h2>
+                <h2 class="article-title"><a href="/article/{{fullSlug}}">{{title}}</a></h2>
                 <div class="article-meta"><strong>{{addedAt}}</strong></div>
             </header>
             <div class="article-description">
-                {{content}}
+                {{headline}}
             </div>
         </section>
     {{/articles}}

@@ -13,13 +13,13 @@ import org.springframework.web.server.ResponseStatusException
 class ArticleController (
     private val articleRepository: ArticleRepository
 ) {
-    @GetMapping("/article/{slug}")
+    @GetMapping("/article/{category}/{slug}")
     fun article(@PathVariable slug: String, model: Model): String {
-        model["title"] = "Artículos"
-        model["article"] = articleRepository
-            .findBySlug(slug)
-            ?.render()
+        val article = articleRepository.findBySlug(slug)
             ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Artículo no encontrado")
+        model["title"] = article.title
+        model["article"] = article.render()
+
         return "article"
     }
 }

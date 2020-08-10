@@ -7,7 +7,7 @@ import kotlin.collections.HashMap
 
 abstract class DomainEvent(
         var aggregateId: String,
-        var body: HashMap<String, Serializable>,
+        var body: HashMap<String, Serializable?>,
         var eventId: String = UUID.randomUUID().toString(),
         var ocurredOn: String = LocalDateTime.now().toString()
 )

@@ -3,6 +3,8 @@ package com.monro.blog.infrastructure.persistance
 import com.monro.blog.domain.Article
 import com.monro.blog.domain.ArticleRepository
 import com.monro.blog.domain.ArticleStatus
+import com.monro.blog.domain.Category
+import com.monro.blog.domain.builders.CategoryBuilder
 import com.monro.shared.src.domain.generateAggregateRootId
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -21,7 +23,8 @@ class SpringArticleRepositoryTest @Autowired constructor(
             generateAggregateRootId(),
             "Test Article",
             "Test Article Content",
-            "test-article"
+            "test-article",
+            getDefaultCategory()
         )
         entityManager.persist(article)
         entityManager.flush()
@@ -35,14 +38,16 @@ class SpringArticleRepositoryTest @Autowired constructor(
             generateAggregateRootId(),
             "Test Article",
             "Test Article Content",
-            "test-article"
+            "test-article",
+            getDefaultCategory()
         )
         publishedArticle.publish()
         val otherArticle = Article(
             generateAggregateRootId(),
             "Test Article2",
             "Test Article Content2",
-            "test-article2"
+            "test-article2",
+            getDefaultCategory()
         )
         entityManager.persist(publishedArticle)
         entityManager.persist(otherArticle)
@@ -50,5 +55,13 @@ class SpringArticleRepositoryTest @Autowired constructor(
         val found = articleRepository.findByStatusOrderByPublishedAtDesc(ArticleStatus.PUBLISHED)
         assertThat(found.count()).isEqualTo(1)
         assertThat(found.first()).isEqualTo(publishedArticle)
+    }
+
+    private fun getDefaultCategory(): Category {
+        val category = CategoryBuilder().build(false)
+        entityManager.persist(category)
+        entityManager.flush()
+
+        return category
     }
 }
